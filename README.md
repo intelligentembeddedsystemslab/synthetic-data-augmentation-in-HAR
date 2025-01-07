@@ -24,18 +24,18 @@ with synthetic data before transfer learning.
 ## **Setup** ##
 
 ### Requirements ###
-Please check the enviroments.yml for required packages. You can create a corresponding Conda environment as follows:
+Please check the enviroments.yml for required packages. You can create a corresponding conda environment as follows:
 ```
 conda env create -f environment.yml
 ```
 
 ### Datasets ###
 We use the MoSurf (not (yet) publicly available), [RealWorld](https://www.uni-mannheim.de/dws/research/projects/activity-recognition/dataset/dataset-realworld/) and [PAMAP2](https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring) dataset.
-Check section **B. DATASETS** in our paper for more information about what data was used. In addition to that, the axes of the RealWorld dataset were adjusted to match the synthetic data using utils/RealWorld_change_axis.ipynb.
+Check section **B. DATASETS** in our publication for more information about the datasets. In addition, the axes of the RealWorld dataset were adjusted to match the synthetic data using utils/RealWorld_change_axis.ipynb.
 
 ### Checkpoints ###
-The checkpoints obtained by pretraining on the MoSurf dataset with and without synthetic data can be downloaded [here](https://drive.google.com/file/d/1ToUin5PjPGel0LJj4JZ7_xJh7AxGGgwJ/view?usp=drive_link).
-Select the checkpoints you want and insert them in the corresponding location, e.g.:
+The checkpoints obtained by pretraining on the MoSurf dataset with and without synthetic data augmentation can be downloaded [here](https://drive.google.com/file/d/1ToUin5PjPGel0LJj4JZ7_xJh7AxGGgwJ/view?usp=drive_link).
+Select the necessary checkpoints and insert them in the corresponding location, e.g.:
 ```
 /synthetic-data-augmentation-in-HAR/model/models/Finetune/AttendDiscriminate/realworld/checkpoint_synthetic_realworld.pth
 ```
@@ -46,15 +46,15 @@ To train a model with the corresponding HAR dataset, run:
 cd model/
 python main.py --dataset [pamap2,realworld,mosurf] --model [DeepConvLSTM, AttendDiscriminate, TransformHAR] --train_mode
 ```
-This will start a LOPO evaluation of the respective dataset with the chosen model architecture.
-After successful evaluation results will be saved in the model/saved_data folder. Use the --experiment argument to change the name under which the results should be saved.
+The comand will start a LOPO evaluation of the respective dataset with the chosen model architecture.
+After successful evaluation, results will be saved in the model/saved_data folder. Use the --experiment argument to change the name under which the results should be saved.
 
 To finetune the checkpoints that were pre-trained on the MoSurf dataset, run the training command with the --finetune argument:
 ```
 python main.py --dataset [pamap2,realworld,mosurf] --model [DeepConvLSTM, AttendDiscriminate, TransformHAR] --train_mode --pretrain
 ```
 
-All arguments of the main.py can be viewed by executing:
+All arguments of the main.py can be inspected by executing:
 ```
 python main.py -h
 
@@ -116,7 +116,7 @@ options:
   --num_loops NUM_LOOPS
                         number of training loops when using holdout validation (default: 1)
 ```
-Please be aware, that not all arguments may be compatible with each other.
+Please be aware, not all arguments may be compatible with each other.
 
 ## **Citation**
 
