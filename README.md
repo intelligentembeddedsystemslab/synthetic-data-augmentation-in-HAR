@@ -16,7 +16,7 @@ conda env create -f environment.yml
 ```
 
 ### Datasets ###
-We use the MoSurf (not (yet) publicly available), [RealWorld](https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring) and [PAMAP2](https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring) dataset.
+We use the MoSurf (not (yet) publicly available), [RealWorld](https://www.uni-mannheim.de/dws/research/projects/activity-recognition/dataset/dataset-realworld/) and [PAMAP2](https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring) dataset.
 Check section **B. DATASETS** in our paper for more information about what data was used. In addition to that, the axes of the RealWorld dataset were adjusted to match the synthetic data using utils/RealWorld_change_axis.ipynb.
 
 ### Checkpoints ###
