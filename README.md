@@ -1,6 +1,11 @@
 ## **Abstract:**
 We investigate personalised, combined biomechanical dynamics models and human surface models to synthesise IMU sensor time series data and to improve Human Activity Recognition (HAR) model performance for activities of daily living (ADLs). We analyse two model training scenarios: (1) data fusion of synthetic and measurement IMU data to train HAR models directly, and (2) pretraining HAR models with synthetic and measured IMU data and subsequent transfer learning with public benchmark datasets. Furthermore, we analyse how the synthetic IMU data helps in configurations with scarce measurement data, by limiting the number of participants and IMUs in both training scenarios. We evaluate three state-of-the-art HAR models to determine the benefit of our approach. Depending on the HAR model, synthetic data increased the macroF1 score on average by $8$\% for configurations with reduced data and by up to 7.5% for transfer learning. In the transfer learning scenario, combining synthetic data with measurement data during pretraining outperformed the results obtained by pretraining with measurement data only, by an average of 5.2% across the public datasets. Our results show that the IMU data synthesis approach improves performance across all HAR models in both training scenarios. Performance improvements exceeded those of noise augmentation and measurement data only. The largest performance improvements were found when original measurement data was scarce. We conclude that augmenting HAR models with synthetic IMU data obtained from the combination of biomechanical dynamics models and human surface models provides clear performance gains for HAR and a versatile approach to accurately reflect actual human movements.
 ![alt text](https://github.com/intelligentembeddedsystemslab/synthetic-data-augmentation-in-HAR/blob/main/SynHAR_methods.png?raw=true)
+FIGURE 1: Method overview. Personalised, biomechanically validated human surface models were created
+and various inertial measurement unit (IMU) sensors were attached. The models were co-simulated to
+synthesise acceleration and gyroscope data. Synthesised data were used to augment deep-learning models
+in two model training scenarios: (1) direct data fusion with measurement data (MoSurf), and (2) pretraining
+with synthetic data before transfer learning.
 
 ## **Setup** ##
 
@@ -12,7 +17,7 @@ conda env create -f environment.yml
 
 ### Datasets ###
 We use the MoSurf (not (yet) publicly available), [RealWorld](https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring) and [PAMAP2](https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring) dataset.
-Check section **B. DATASETS** in our paper for more information about what data was used. In addition to that, the axes of the RealWorld dataset were adjusted to match the synthetic data using RealWorld_change_axis.ipynb.
+Check section **B. DATASETS** in our paper for more information about what data was used. In addition to that, the axes of the RealWorld dataset were adjusted to match the synthetic data using utils/RealWorld_change_axis.ipynb.
 
 ### Checkpoints ###
 The checkpoints obtained by pretraining on the MoSurf dataset with and without synthetic data can be downloaded [here](https://drive.google.com/file/d/1ToUin5PjPGel0LJj4JZ7_xJh7AxGGgwJ/view?usp=drive_link).
@@ -24,6 +29,7 @@ Select the checkpoints you want and insert them in the corresponding location, e
 
 To train a model with the corresponding HAR dataset, run:
 ```
+cd model/
 python main.py --dataset [pamap2,realworld,mosurf] --model [DeepConvLSTM, AttendDiscriminate, TransformHAR] --train_mode
 ```
 This will start a LOPO evaluation of the respective dataset with the chosen model architecture.
@@ -36,7 +42,6 @@ python main.py --dataset [pamap2,realworld,mosurf] --model [DeepConvLSTM, Attend
 
 All arguments of the main.py can be viewed by executing:
 ```
-cd model/
 python main.py -h
 
 usage: main.py [-h] [--experiment EXPERIMENT] [--train_mode] [--dataset {mosurf,realworld,pamap2}] [--synthetic_data] [--noise_augmentation] [--warp_augmentation]
